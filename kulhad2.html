@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <title>Kulhad Wala’s | Handcrafted Artisanal Clay Kulhads in Jaipur</title>
+  <meta name="description" content="Discover the art of tradition with Kulhad Wala's. We offer beautiful, handcrafted clay kulhads, perfect for tea, lassi, and coffee. Based in Jaipur, Rajasthan.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- Base Styles --- */
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      position: relative;
+      padding-top: 70px; 
+      overflow-x: hidden;
+    }
+
+    /* --- Navigation Bar CSS --- */
+    .navbar {
+        background: rgba(10, 10, 10, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 1rem 2rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+    }
+    .nav-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ff4e50;
+        text-decoration: none;
+    }
+    .nav-links {
+        display: flex;
+    }
+    .nav-links a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 25px;
+        font-size: 1rem;
+        transition: color 0.3s;
+    }
+    .nav-links a:hover {
+        color: #ff4e50;
+    }
+    .burger {
+        display: none;
+        cursor: pointer;
+    }
+    .burger div {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+
+    /* --- Mobile Navigation --- */
+    @media screen and (max-width: 768px) {
+        .nav-links {
+            position: fixed;
+            right: 0px;
+            top: 70px;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60%;
+            height: calc(100vh - 70px);
+            transform: translateX(100%);
+            transition: transform 0.5s ease-in-out;
+        }
+        .nav-links a {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            opacity: 0;
+        }
+        .burger {
+            display: block;
+        }
+    }
+    .nav-active {
+        transform: translateX(0%);
+    }
+    @keyframes navLinkFade { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0px); } }
+    .toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+    .toggle .line2 { opacity: 0; }
+    .toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+
+    /* --- Banner & General Sections --- */
+    .banner-slider { position: relative; width: 100%; margin: auto; overflow: hidden; }
+    .slide { display: none; position: relative; width: 100%; }
+    .slide img { width: 100%; height: auto; display: block; }
+    .banner-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: right; padding: 20px; width: 90%; max-width: 800px; }
+    /* --- Special style to move text to top-right corner --- */
+    .text-top-right {/* remove default centering styles */
+    left: auto; top: auto; transform: none;
+    /* set new position */
+    position: absolute; top: 0px; left: 0px; text-align: left; width: auto; max-width: 450px; background: none; }
+    .banner-text h1, .banner-text h2, .banner-text p { opacity: 0; }
+    .banner-text h1, .banner-text h2 { font-size: 3.5rem; margin-bottom: 10px; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); }
+    .banner-text p { font-size: 1.5rem; text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7); }
+    .slide.active .banner-text h1, .slide.active .banner-text h2 { animation: animateTextUp 1s ease-out 0.5s forwards; }
+    .slide.active .banner-text p { animation: animateTextUp 1s ease-out 0.8s forwards; }
+    @keyframes animateTextUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    .slider-dots { text-align: center; position: absolute; bottom: 20px; width: 100%; }
+    .dot { cursor: pointer; height: 15px; width: 15px; margin: 0 5px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
+    .active-dot, .dot:hover { background-color: #ff4e50; }
+    section { padding: 3rem 1rem; max-width: 1100px; margin: auto; }
+
+    /* --- Flip Cards --- */
+    .product { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+    .card { background-color: transparent; width: 300px; height: 400px; perspective: 1000px; border: none; padding: 0; }
+    .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; }
+    .card:hover .card-inner { transform: rotateY(180deg); }
+    .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 10px; padding: 20px; box-sizing: border-box; }
+    .card-front { background: #1c1c1c; box-shadow: 0 0 10px rgba(255, 77, 77, 0.2); }
+    .card-back { background: #2a2a2a; color: white; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .card-back h2 { color: #50ff4e; }
+    .buy-button { display: inline-block; margin-top: 15px; padding: 10px 20px; background-color: #ff4e50; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background-color 0.3s ease; }
+    .buy-button:hover { background-color: #e63946; }
+
+    /* --- Video Grid & Text Overlay --- */
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; padding: 1rem; }
+    .video-item { background: #1c1c1c; border-radius: 10px; box-shadow: 0 0 10px rgba(255, 77, 77, 0.2); overflow: hidden; transition: transform 0.3s ease; position: relative; }
+    .video-item:hover { transform: scale(1.03); }
+    .video-item video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-text, .video-text1, .video-text2 { position: absolute; left: 50%; transform: translateX(-50%); width: 90%; color: white; text-align: center; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); }
+    .video-text1, .video-text2 { top: 15%; } .video-text { top: 25%; }
+    .video-text h3, .video-text1 h3, .video-text2 h3 { font-size: 1.3rem; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px; }
+    .video-text p, .video-text1 p, .video-text2 p { font-size: 1.3rem; margin: 0; line-height: 1.2; }
+    .video-text p { font-size: 1.5rem; line-height: 0.5; }
+
+    /* --- ADDED: Testimonials Section CSS --- */
+    .testimonials {
+      padding: 3rem 1rem;
+      background: #111;
+    }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: auto;
+      margin-top: 2rem;
+    }
+    .testimonial-card {
+      background: #1c1c1c;
+      border-radius: 10px;
+      padding: 2rem;
+      border-left: 5px solid #ff4e50;
+      text-align: left;
+    }
+    .testimonial-card .stars {
+      color: #ffc107;
+      font-size: 1.2rem;
+      margin: 0 0 1rem 0;
+    }
+    .testimonial-card .quote {
+      font-style: italic;
+      color: #ccc;
+      margin: 0 0 1rem 0;
+    }
+    .testimonial-card .author {
+      font-weight: bold;
+      color: #fff;
+      text-align: right;
+    }
+
+    /* --- Contact & Footer --- */
+    .contact-container { display: flex; justify-content: center; align-items: center; gap: 4rem; flex-wrap: wrap; max-width: 900px; margin: auto; }
+    .contact-details { line-height: 2; color: #fff; }
+    .contact-details strong { color: #ff4e50; margin-right: 10px; }
+    .contact-qr { text-align: center; }
+    .contact-qr img { width: 180px; height: 180px; border: 5px solid white; border-radius: 10px; background-color: white; padding: 5px; }
+    footer { background: #111; text-align: center; padding: 1rem; font-size: 0.9rem; color: #777; }
+    
+    /* --- ADDED: Scroll Animation CSS --- */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .reveal-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* --- ADDED: Back to Top Button CSS --- */
+    .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #ff4e50;
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 24px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s, transform 0.4s;
+        transform: translateY(20px);
+        z-index: 999;
+    }
+    .back-to-top.visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    /* --- Cursor Glow --- */
+    .cursor-glow { display: none; }
+    @media (pointer: fine) { .cursor-glow { display: block; position: fixed; width: 40px; height: 40px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(233, 125, 125, 0.4), transparent 60%); mix-blend-mode: screen; z-index: 9999; filter: blur(4px); transition: transform 0.05s linear; } }
+    
+    /* --- Final Media Queries for Responsiveness --- */
+    @media (max-width: 768px) { .banner-text h1, .banner-text h2 { font-size: 2rem; } .banner-text p { font-size: 1.1rem; } }
+    @media (min-width: 768px) { .product { flex-direction: row; justify-content: space-between; } .card { width: 30%; } }
+
+  </style>
+</head>
+<body>
+  
+  <nav class="navbar">
+    <a href="#" class="nav-brand">Kulhad Wala’s</a>
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#story">Our Goal</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+  </nav>
+
+  <div class="banner-slider">
+    <div class="slide"> <img src="banner3.jpg" alt="Handcrafted artistic kulhad"> <div class="banner-text"> <h2>The Art of Creation</h2> <p>Handcrafted & Artistic</p> </div> </div>
+    <div class="slide"> <img src="banner1.jpg" alt="A collection of unique kulhads"> <div class="banner-text"> <h1>Make Every Moment Special</h1> <p>With our unique collection of Kulhad</p> </div> </div>
+    <div class="slide"> <img src="banner2.jpg" alt="Elegant and minimalist kulhads"> <div class="banner-text"> <h2>The Art of Form</h2> <p>Elegance, Minimalism & Art</p> </div> </div>
+    <div class="slide"> <img src="banner4.jpg" alt="Handcrafted artistic kulhad"> <div class="banner-text text-top-right"> <h2>Modern Designs</h2> <p>Perfect for your contemporary lifestyle</p> </div> </div>
+    <div class="slider-dots"> <span class="dot"></span> <span class="dot"></span> <span class="dot"></span> <span class="dot"></span></div>
+  </div>
+
+  <section>
+    <div class="video-grid reveal-on-scroll">
+        <div class="video-item"> <div class="video-text1"> <h3>Tradition served in</h3> <p><b>A CUP</b></p> </div> <video width="100%" height="auto" autoplay loop muted playsinline loading="lazy"> <source src="kulhad1.mp4" type="video/mp4" /> Your browser does not support the video tag. </video> </div>
+        <div class="video-item"> <div class="video-text2"> </div> <video width="100%" height="auto" autoplay loop muted playsinline loading="lazy"> <source src="kulhad2.mp4" type="video/mp4" /> Your browser does not support the video tag. </video> </div>
+        <div class="video-item"> <div class="video-text"> <h3>A life shaped by hands</h3> <p><b>from the soil</b></p> </div> <video width="100%" height="auto" autoplay loop muted playsinline loading="lazy"> <source src="kulhad3.mp4" type="video/mp4" /> Your browser does not support the video tag. </video> </div>
+    </div>
+
+    <h2 id="products" style="color:#ff4e50; text-align:center; padding-top: 2rem;">Our Kulhads</h2>
+    <div class="product reveal-on-scroll" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+        <div class="card"> <div class="card-inner"> <div class="card-front"> <img src="Kulhad cup2.jpg" alt="Classic Kulhad" style="width: 100%; height: auto; border-radius: 8px;"> <h2>Classic Kulhad</h2> </div> <div class="card-back"> <h2>Classic Kulhad</h2> <p><strong>Material:</strong> 100% Natural Clay</p> <p><strong>Capacity:</strong> 120 ml</p> <p><strong>Features:</strong> Eco-friendly, Reusable.</p> <p><strong>Price:</strong> ₹50</p> <a href="https://wa.me/918209208029?text=Hi!%20I'm%20interested%20in%20the%20Classic%20Kulhad." target="_blank" class="buy-button">Buy on WhatsApp</a> </div> </div> </div>
+        <div class="card"> <div class="card-inner"> <div class="card-front"> <img src="Kulhad cup1.jpg" alt="Matte Finish Kulhad" style="width: 100%; height: auto; border-radius: 8px;"> <h2>Matte Finish Kulhad</h2> </div> <div class="card-back"> <h2>Matte Finish Kulhad</h2> <p><strong>Material:</strong> Glazed Clay</p> <p><strong>Capacity:</strong> 150 ml</p> <p><strong>Features:</strong> Sleek design, Easy to clean.</p> <p><strong>Price:</strong> ₹75</p> <a href="https://wa.me/918209208029?text=Hi!%20I'm%20interested%20in%20the%20Matte%20Finish%20Kulhad." target="_blank" class="buy-button">Buy on WhatsApp</a> </div> </div> </div>
+        <div class="card"> <div class="card-inner"> <div class="card-front"> <img src="Kulhad cup3.jpg" alt="Designer Kulhad" style="width: 100%; height: auto; border-radius: 8px;"> <h2>Designer Kulhad</h2> </div> <div class="card-back"> <h2>Designer Kulhad</h2> <p><strong>Material:</strong> Hand-painted Clay</p> <p><strong>Capacity:</strong> 225 ml</p> <p><strong>Features:</strong> Intricate patterns, Gifting.</p> <p><strong>Price:</strong> ₹99</p> <a href="https://wa.me/918209208029?text=Hi!%20I'm%20interested%20in%20the%20Designer%20Kulhad." target="_blank" class="buy-button">Buy on WhatsApp</a> </div> </div> </div>
+    </div>
+    <h2 style="color:#ff4e50; text-align:center; font-weight: 400; font-style: italic; margin-top: 2rem;">Each piece is a work of art, telling its own unique story.</h2>
+  </section>
+
+  <section id="story" class="reveal-on-scroll" style="padding-top: 2rem; padding-bottom: 4rem; text-align: center;">
+    <h2 style="color:#ff4e50; margin-bottom: 1.5rem;">Our Goal</h2>
+    <div style="max-width: 800px; margin: auto; line-height: 1.8; color: #ccc; font-style: italic;"> <p>At Kulhad Wala's, our goal is to revive the essence of Indian tradition by promoting eco-friendly, handcrafted clay products that connect people back to their roots. We aim to provide sustainable alternatives to plastic by delivering pure, natural kulhads that represent the beauty of simplicity and the richness of our culture. Through quality, design, and authenticity, we strive to become a trusted name in every home and heart.</p> </div>
+  </section>
+
+  <section class="testimonials reveal-on-scroll">
+    <h2 style="color:#ff4e50; text-align:center;">What Our Customers Say</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card"> <p class="stars">★★★★★</p> <p class="quote">"Absolutely beautiful and authentic kulhads! The chai tastes so much better. I ordered from Delhi and the delivery was perfect."</p> <p class="author">- Priya S.</p> </div>
+      <div class="testimonial-card"> <p class="stars">★★★★★</p> <p class="quote">"As a cafe owner in Jaipur, I source all my kulhads from Kulhad Wala's. The quality is consistent and my customers love the traditional feel."</p> <p class="author">- Rohan Singh, The Chai Corner</p> </div>
+      <div class="testimonial-card"> <p class="stars">★★★★☆</p> <p class="quote">"I bought the designer kulhads as a gift and they were a huge hit! Great craftsmanship. One arrived with a minor chip but was replaced quickly."</p> <p class="author">- Anjali M.</p> </div>
+    </div>
+  </section>
+
+  <section id="contact" style="padding: 3rem 1rem;">
+    <hr style="border: none; height: 2px; background: #ff4e50; width: 90%; margin-bottom: 3rem;">
+    <h2 style="color:#ff4e50; text-align:center; margin-bottom: 3rem;">Contact & Visit Us</h2>
+    <div class="contact-container">
+      <div class="contact-details"> <p><strong>Address:</strong> 6, Vatika Street 2nd, Subhrampura, Kisanpura, Jaipur, Rajasthan, 302012</p> <p><strong>Email:</strong> jatin2552prajapat@gmail.com</p> <p><strong>Phone:</strong> +91 82092 08029</p> <p style="margin-top: 1.5rem; color: #ccc;"> For any questions or orders, please feel free to contact us. </p> </div>
+      <div class="contact-qr"> <img src="WhatsappQR.png" alt="Scan to connect on WhatsApp"> <p style="margin-top: 1rem; color: #aaa;">Scan the QR code to join WhatsApp</p> </div>
+    </div>
+    <div class="reveal-on-scroll" style="margin-top: 3rem; border-radius: 10px; overflow: hidden; border: 2px solid #333;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3558.910292211915!2d75.75333507507198!3d26.87455806222881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db5ac75559a61%3A0x139d3388a10e6113!2s6%2C%20Vatika%20St%202nd%2C%20Subhrampura%2C%20Kisanpura%2C%20Jaipur%2C%20Rajasthan%20302012!5e0!3m2!1sen!2sin!4v1719572076043!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+
+  <footer> &copy; 2025 Kulhad Wala’s — All rights reserved. </footer>
+  
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <a href="#" class="back-to-top" aria-label="Back to top">↑</a>
+
+  <script>
+    // --- Burger Menu Navigation Script ---
+    const navSlide = () => {
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        if (!burger || !nav) return;
+
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('nav-active');
+            navLinks.forEach((link, index) => {
+                if (link.style.animation) {
+                    link.style.animation = '';
+                } else {
+                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                }
+            });
+            burger.classList.toggle('toggle');
+        });
+    }
+    navSlide();
+
+    // --- Banner Slider Script ---
+    let slideIndex = 0;
+    showSlides(); 
+    function showSlides() {
+      let i;
+      let slides = document.getElementsByClassName("slide");
+      let dots = document.getElementsByClassName("dot");
+      if (slides.length === 0) return;
+      for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; slides[i].classList.remove("active"); }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1; }
+      for (i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active-dot", ""); }
+      slides[slideIndex - 1].style.display = "block";
+      slides[slideIndex - 1].classList.add("active");
+      dots[slideIndex - 1].className += " active-dot";
+      setTimeout(showSlides, 5000); 
+    }
+
+    // --- Cursor Glow Script ---
+    const glow = document.getElementById("cursorGlow");
+    if (glow) {
+      document.addEventListener("mousemove", (e) => {
+        glow.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
+      });
+    }
+
+    // --- ADDED: Scroll Animation Logic ---
+    const revealElements = document.querySelectorAll(".reveal-on-scroll");
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    revealElements.forEach(element => { revealObserver.observe(element); });
+
+    // --- ADDED: Back to Top Button Logic ---
+    const backToTopButton = document.querySelector(".back-to-top");
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add("visible");
+        } else {
+            backToTopButton.classList.remove("visible");
+        }
+    });
+
+  </script>
+
+</body>
+</html>

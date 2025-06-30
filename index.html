@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
   <title>Kulhad Wala’s | Handcrafted Artisanal Clay Kulhads in Jaipur</title>
+  <link rel="icon" href="favicon.png" type="image/png">
   <meta name="description" content="Discover the art of tradition with Kulhad Wala's. We offer beautiful, handcrafted clay kulhads, perfect for tea, lassi, and coffee. Based in Jaipur, Rajasthan.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,12 +44,21 @@
         align-items: center;
         box-sizing: border-box;
     }
-    .nav-brand {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #ff4e50;
-        text-decoration: none;
-    }
+
+.nav-brand {
+    display: flex;
+    align-items: flex-end; /* THIS IS THE KEY CHANGE - Aligns items to the bottom */
+    gap: 0px;              /* Reduced the gap to bring them closer */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff4e50;
+    text-decoration: none;
+}
+
+.nav-brand img {
+    height: 50px; 
+} 
+
     .nav-links {
         display: flex;
     }
@@ -245,7 +255,7 @@
 <body>
   
   <nav class="navbar">
-    <a href="#" class="nav-brand">Kulhad Wala’s</a>
+   <a href="#" class="nav-brand"><img src="logo.png" alt="Kulhad Wala's Logo" style="height: 50px; width: auto; vertical-align: bottom; margin-right: 0px;">KULHAD WALA'S</a>
     <div class="nav-links">
       <a href="#products">Products</a>
       <a href="#story">Our Goal</a>
@@ -337,22 +347,65 @@
     navSlide();
 
     // --- Banner Slider Script ---
-    let slideIndex = 0;
-    showSlides(); 
-    function showSlides() {
-      let i;
-      let slides = document.getElementsByClassName("slide");
-      let dots = document.getElementsByClassName("dot");
-      if (slides.length === 0) return;
-      for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; slides[i].classList.remove("active"); }
-      slideIndex++;
-      if (slideIndex > slides.length) { slideIndex = 1; }
-      for (i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active-dot", ""); }
-      slides[slideIndex - 1].style.display = "block";
-      slides[slideIndex - 1].classList.add("active");
-      dots[slideIndex - 1].className += " active-dot";
-      setTimeout(showSlides, 5000); 
+let slideIndex = 1;
+let slideTimeout; // Variable to control the autoplay timer
+
+// Run the script only after the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", function() {
+    // Initially, show the first slide
+    showSlide(slideIndex);
+    
+    // Add a click event listener to each dot
+    const dots = document.querySelectorAll(".dot");
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", function() {
+            currentSlide(index + 1);
+        });
+    });
+});
+
+// This function is for jumping to a specific slide (when a dot is clicked)
+function currentSlide(n) {
+    showSlide(slideIndex = n);
+}
+
+// This is the main function that handles displaying the slides
+function showSlide(n) {
+    // Stop the current autoplay timer before proceeding
+    clearTimeout(slideTimeout);
+
+    let i;
+    let slides = document.getElementsByClassName("slide");
+    let dots = document.getElementsByClassName("dot");
+    if (slides.length === 0) return;
+
+    // If the index goes beyond the number of slides, loop back to the first one
+    if (n > slides.length) { slideIndex = 1; }
+    
+    // If the index is less than 1, go to the last slide
+    if (n < 1) { slideIndex = slides.length; }
+
+    // First, hide all the slides to reset the view
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+        slides[i].classList.remove("active");
     }
+
+    // Remove the "active-dot" class from all dots
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active-dot", "");
+    }
+
+    // Display the correct slide and set its corresponding dot to active
+    slides[slideIndex - 1].style.display = "block";
+    slides[slideIndex - 1].classList.add("active");
+    dots[slideIndex - 1].className += " active-dot";
+
+    // Set a new timer to automatically go to the next slide after 5 seconds
+    slideTimeout = setTimeout(() => {
+        showSlide(slideIndex += 1);
+    }, 5000); 
+}
 
     // --- Cursor Glow Script ---
     const glow = document.getElementById("cursorGlow");
